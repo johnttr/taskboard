@@ -65,4 +65,17 @@ public class UserService {
     private UserResponse toResponse(User user) {
         return new UserResponse(user.getId(), user.getName(), user.getEmail());
     }
+    public UserResponse updateUser(Long id, UserCreateRequest request) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Utilisateur "+ id + " introuvable"));
+        user.setName(request.name());
+        user.setEmail(request.email());
+        User updated = userRepository.save(user);
+        return toResponse(updated);
+    }
+    public void deleteUser(Long id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Utilisateur "+ id + " introuvable"));
+        userRepository.delete(user);
+    }
 }

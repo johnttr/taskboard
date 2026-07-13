@@ -3,6 +3,7 @@ package com.fullstack.taskboard.controller;
 import com.fullstack.taskboard.dto.UserCreateRequest;
 import com.fullstack.taskboard.dto.UserResponse;
 import com.fullstack.taskboard.service.UserService;
+import com.fullstack.taskboard.model.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 /**
  * COUCHE CONTRÔLEUR (API REST) : UserController
@@ -64,5 +69,15 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserById(id));
+    }
+    @PutMapping("/{id}")
+    public ResponseEntity<UserResponse> modifierUtilisateur(@PathVariable Long id, @RequestBody UserCreateRequest user) {
+        UserResponse updated = userService.updateUser(id, user);
+        return ResponseEntity.ok(updated);
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> supprimerUtilisateur(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 }
