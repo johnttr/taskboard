@@ -32,8 +32,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleNotFound(ResourceNotFoundException ex) {
         ErrorResponse body = new ErrorResponse(
-            LocalDateTime.now(),
             HttpStatus.NOT_FOUND.value(),
+            "Ressource non trouvée",
             ex.getMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
     }
@@ -53,6 +53,7 @@ public class GlobalExceptionHandler {
         }
         ErrorResponse body = new ErrorResponse(
             HttpStatus.BAD_REQUEST.value(),
+            "Données invalides",
             "Un ou plusieurs champs sont invalides",
             fieldErrors);
         return ResponseEntity.badRequest().body(body);
@@ -67,8 +68,8 @@ public class GlobalExceptionHandler {
         ex.printStackTrace();
         ErrorResponse body = new ErrorResponse(
             HttpStatus.INTERNAL_SERVER_ERROR.value(),
-            ex.getMessage(),
-            null);
+            "Erreur interne du serveur",
+            "Une erreur inattendue est survenue. Veuillez contacter l'administrateur.");
         return ResponseEntity.internalServerError().body(body);
     }
 }

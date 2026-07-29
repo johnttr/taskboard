@@ -1,0 +1,86 @@
+PROJET FIL ROUGE - TASKBOARD / GUIDE POUR NETWORKING
+
+Objectif du fil rouge :
+Ce projet sert de base d'initiation au développement avec Spring Boot. Il permet d'apprendre comment construire une application complète en suivant une architecture propre et professionnelle : modèle, repositories, services, contrôleurs, DTO, exceptions et tests.
+
+Ce que le projet Taskboard montre :
+- Une application backend qui gère des entités métier : User, Board, Task.
+- Une architecture en couches :
+  - Controller : reçoit les requêtes HTTP et renvoie les réponses.
+  - Service : contient la logique métier.
+  - Repository : interagit avec la base de données.
+  - Model : représente les entités du domaine.
+  - DTO : transporte les données proprement entre les couches.
+  - Exception : gère les erreurs de façon centralisée.
+
+Stack technique utilisée :
+- Java 21
+- Spring Boot
+- Spring Web MVC
+- Spring Data JPA
+- Validation
+- Lombok
+- Maven
+- H2 / PostgreSQL
+- JUnit / Spring Test
+
+Fonctionnalités de base à reproduire dans un nouveau projet :
+1. Créer les entités du domaine.
+2. Définir les relations entre entités.
+3. Mettre en place les repositories.
+4. Implémenter les services avec la logique métier.
+5. Créer les contrôleurs pour exposer les endpoints.
+6. Définir des DTO pour séparer les données entrantes/sortantes.
+7. Gérer les erreurs proprement.
+8. Ajouter des tests unitaires et d'intégration.
+9. Configurer la base de données et l'application.
+
+Mode d'organisation recommandé pour Networking :
+- Identifier les entités principales du domaine : User, Profile, Post, Comment, Conversation, Message, Connection, etc.
+- Définir les relations (un utilisateur possède un profil, un post appartient à un utilisateur, une conversation contient plusieurs messages, etc.).
+- Commencer toujours par le modèle puis les repositories, ensuite les services, puis les contrôleurs.
+- Toujours valider les entrées utilisateur.
+- Séparer les responsabilités pour garder un code propre.
+
+Plan de développement conseillé pour Networking :
+Etape 1 : analyser le besoin du projet
+- Définir les fonctionnalités principales.
+- Choisir les entités clés.
+- Déterminer les relations entre elles.
+
+Etape 2 : créer la structure du projet
+- Packages : controller, service, repository, model, dto, exceptions.
+- Fichiers de configuration.
+
+Etape 3 : implémenter le modèle
+- Créer les classes d'entités avec les attributs essentiels.
+- Ajouter les annotations JPA si nécessaire.
+
+Etape 4 : implémenter les accès données
+- Créer les interfaces repository.
+- Ajouter les méthodes de base CRUD.
+
+Etape 5 : implémenter la logique métier
+- Définir les services.
+- Ajouter les règles métier importantes.
+
+Etape 6 : exposer l'API
+- Créer les endpoints REST.
+- Tester via Postman ou Swagger si disponible.
+
+Etape 7 : ajouter la gestion des erreurs
+- Créer des exceptions personnalisées.
+- Retourner des messages clairs.
+
+Etape 8 : ajouter les tests
+- Tester les services et les contrôleurs.
+- Vérifier les cas d'erreur.
+
+Etape 9 : finaliser et améliorer
+- Ajouter validation, sécurité, pagination, filtrage, documentation.
+
+Conseil principal :
+Ne pas commencer par l'interface, mais d'abord maîtriser la structure backend, la logique métier et la base de données. Une bonne architecture simplifie énormément le reste du projet.
+
+En résumé :
+Le projet Taskboard est un exemple pédagogique de ce qu'une application Spring Boot bien organisée doit avoir. Pour ton projet Networking, tu dois reprendre ce même chemin, mais en l'adaptant à ton domaine : utilisateurs, profils, interactions, messages, connexions, publications, etc.

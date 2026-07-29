@@ -1,0 +1,1 @@
+les service servent à manipuler les repository, dans le service il faut le repository. et cest ici qu'il ya le plus gros du travail.

@@ -6,13 +6,14 @@ import java.util.Map;
 public record ErrorResponse(
     LocalDateTime timestamp,
     int status,
+    String error,
     String message,
     Map<String, String> fieldErrors
 ) {
-    public ErrorResponse(LocalDateTime timestamp, int status, String message) {
-        this(timestamp, status, message, null);
+    public ErrorResponse(int status, String error, String message) {
+        this(LocalDateTime.now(), status, error, message, null);
     }
-    public ErrorResponse(int status, String message, Map<String, String> fieldErrors) {
-        this(LocalDateTime.now(), status, message, fieldErrors);
+    public ErrorResponse(int status, String error, String message, Map<String, String> fieldErrors) {
+        this(LocalDateTime.now(), status, error, message, fieldErrors);
     }
 }

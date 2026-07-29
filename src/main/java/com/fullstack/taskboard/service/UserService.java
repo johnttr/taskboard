@@ -2,6 +2,7 @@ package com.fullstack.taskboard.service;
 
 import com.fullstack.taskboard.dto.UserCreateRequest;
 import com.fullstack.taskboard.dto.UserResponse;
+import com.fullstack.taskboard.exceptions.ResourceNotFoundException;
 import com.fullstack.taskboard.model.User;
 import com.fullstack.taskboard.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -33,12 +34,12 @@ public class UserService {
         return userRepository.findAll().stream().map(this::toResponse).toList();
     }
 
-    @Transactional(readOnly = true)
-    //public User findUserorthrow(Long id) {
-    public String findUserorthrow(Long id) {
-    //    return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Utilisateur introuvable"));
-        return "L'utilisateur avec l'ID " + id + " n'existe pas.";
-    }
+    // @Transactional(readOnly = true)
+    // //public User findUserorthrow(Long id) {
+    // public String findUserorthrow(Long id) {
+    // //    return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Utilisateur introuvable"));
+    //     return "L'utilisateur avec l'ID " + id + " n'existe pas.";
+    // }
 
 
     /*
@@ -57,25 +58,32 @@ public class UserService {
     **/
    @Transactional(readOnly = true)
     public UserResponse getUserById(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Utilisateur "+ id + " introuvable"));
+        User user = findUserOrThrow(id);
+        //  userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Utilisateur "+ id + " introuvable"));
         return toResponse(user);
     }
 
+    @Transactional(readOnly = true)
+    public User findUserOrThrow(Long id) {
+        return userRepository.findById(id)
+            .orElseThrow(() -> new ResourceNotFoundException("Utilisateur introuvable avec id=" + id));
+    }
     private UserResponse toResponse(User user) {
         return new UserResponse(user.getId(), user.getName(), user.getEmail());
     }
     public UserResponse updateUser(Long id, UserCreateRequest request) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Utilisateur "+ id + " introuvable"));
+        User user = findUserOrThrow(id);
+        // userRepository.findById(id)
+        //         .orElseThrow(() -> new IllegalArgumentException("Utilisateur "+ id + " introuvable"));
         user.setName(request.name());
         user.setEmail(request.email());
         User updated = userRepository.save(user);
         return toResponse(updated);
     }
     public void deleteUser(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Utilisateur "+ id + " introuvable"));
+        User user = findUserOrThrow(id);
+        // userRepository.findById(id)
+        //         .orElseThrow(() -> new IllegalArgumentException("Utilisateur "+ id + " introuvable"));
         userRepository.delete(user);
     }
 }
